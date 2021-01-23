@@ -32,7 +32,8 @@
                     android:id="@+id/tietEmailLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/greenLight" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -42,7 +43,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dim10dp"
-
                 android:layout_marginTop="@dimen/dim10dp"
                 android:hint="@string/password"
                 app:boxBackgroundColor="@color/white">
@@ -51,7 +51,8 @@
                     android:id="@+id/tietPasswordLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:textColor="@color/greenLight"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -67,8 +68,12 @@
             <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dim10dp"
-                android:text="@string/log_in" />
+                android:layout_marginHorizontal="@dimen/dim10dp"
+                android:layout_marginTop="@dimen/dim10dp"
+                android:fontFamily="@font/roboto"
+                android:padding="@dimen/dim10dp"
+                android:text="@string/log_in"
+                android:textStyle="bold" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Widget.MaterialComponents.Button.TextButton"
@@ -85,8 +90,8 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:scaleType="fitXY"
+        android:layout_height="match_parent"
         android:src="@drawable/wallpaper" />
 
 </FrameLayout>
