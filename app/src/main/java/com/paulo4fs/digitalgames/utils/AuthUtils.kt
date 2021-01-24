@@ -4,12 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import android.inputmethodservice.InputMethodService
 import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.paulo4fs.digitalgames.utils.Constants.APP_KEY
 import com.paulo4fs.digitalgames.utils.Constants.EMPTY_STRING
+import com.paulo4fs.digitalgames.utils.Constants.LOGIN_KEY
 import com.paulo4fs.digitalgames.utils.Constants.UIID_KEY
 
 object AuthUtils {
@@ -37,6 +37,41 @@ object AuthUtils {
             }
             else -> true
         }
+    }
+
+    fun validadeNameEmailPassword(
+        name: String?,
+        email: String?,
+        password: String?,
+        confirmationPassword: String?
+    ): Boolean {
+        return when {
+            name.isNullOrEmpty() ||
+                    email.isNullOrEmpty() ||
+                    password.isNullOrEmpty() ||
+                    password != confirmationPassword -> {
+                false
+            }
+            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
+                false
+            }
+            password.length < 6 -> {
+                false
+            }
+            else -> true
+        }
+    }
+
+    fun saveLoginPrefs(context: Context, check: Boolean) {
+        val preferences: SharedPreferences =
+            context.getSharedPreferences(APP_KEY, MODE_PRIVATE)
+        preferences.edit().putBoolean(LOGIN_KEY, check).apply()
+    }
+
+    fun getLoginPrefs(context: Context): Boolean {
+        val preferences: SharedPreferences =
+            context.getSharedPreferences(APP_KEY, MODE_PRIVATE)
+        return preferences.getBoolean(LOGIN_KEY, false)
     }
 
     fun hideKeyboard(view: View) {

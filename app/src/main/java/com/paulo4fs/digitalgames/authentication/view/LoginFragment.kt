@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ProgressBar
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -14,6 +15,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.paulo4fs.digitalgames.R
 import com.paulo4fs.digitalgames.authentication.viewmodel.AuthViewModel
 import com.paulo4fs.digitalgames.utils.AuthUtils.hideKeyboard
+import com.paulo4fs.digitalgames.utils.AuthUtils.saveLoginPrefs
 import com.paulo4fs.digitalgames.utils.AuthUtils.validadeEmailPassword
 
 class LoginFragment : Fragment() {
@@ -40,7 +42,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun checkUserHandler() {
-        _authViewModel.checkUser()
+        _authViewModel.checkUser(_view)
     }
 
     private fun initViewModel() {
@@ -71,7 +73,6 @@ class LoginFragment : Fragment() {
         navController.navigate(R.id.action_loginFragment_to_homeFragment)
     }
 
-
     private fun showLoading(isLoading: Boolean) {
         val progressBar = _view.findViewById<ProgressBar>(R.id.pbProgressBarLogin)
         when {
@@ -92,8 +93,12 @@ class LoginFragment : Fragment() {
         val loginBtn = _view.findViewById<MaterialButton>(R.id.mbLoginLogin)
         val email = _view.findViewById<TextInputEditText>(R.id.tietEmailLogin)
         val password = _view.findViewById<TextInputEditText>(R.id.tietPasswordLogin)
+        val checkBox = _view.findViewById<CheckBox>(R.id.cbCheckBoxLogin)
         loginBtn.setOnClickListener {
             hideKeyboard(_view)
+
+            saveLoginPrefs(requireActivity(), checkBox.isChecked)
+
             if (validadeEmailPassword(email.text.toString(), password.text.toString())) {
                 _authViewModel.loginUser(
                     requireActivity(),
@@ -109,8 +114,16 @@ class LoginFragment : Fragment() {
     private fun signUpHandler() {
         val signupBtn = _view.findViewById<MaterialButton>(R.id.mbSignupLogin)
         signupBtn.setOnClickListener {
+            clearText()
             val navController = findNavController()
             navController.navigate(R.id.action_loginFragment_to_signupFragment)
         }
+    }
+
+    private fun clearText() {
+        val email = _view.findViewById<TextInputEditText>(R.id.tietEmailLogin)
+        val password = _view.findViewById<TextInputEditText>(R.id.tietPasswordLogin)
+        email.setText("")
+        password.setText("")
     }
 }

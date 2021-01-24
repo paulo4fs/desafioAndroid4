@@ -101,7 +101,7 @@
 
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/mbCreateSignup"
+                android:id="@+id/mbSignupSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dim10dp"

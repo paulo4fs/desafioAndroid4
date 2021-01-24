@@ -3,6 +3,7 @@ package com.paulo4fs.digitalgames.authentication.viewmodel
 import android.app.Activity
 import android.app.Application
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -16,9 +17,11 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     var stateRegister = MutableLiveData<Boolean>()
     var stateRegistered = MutableLiveData<Boolean>()
 
-    fun checkUser() {
+    fun checkUser(view: View) {
         val user = FirebaseAuth.getInstance().currentUser
-        stateRegistered.value = user != null
+        if (AuthUtils.getLoginPrefs(view.context)) {
+            stateRegistered.value = user != null
+        }
     }
 
     fun registerUser(
@@ -39,6 +42,9 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
                 when {
                     task.isSuccessful -> {
+                        val user = FirebaseAuth.getInstance().currentUser
+                        user?.updateProfile(profileUpdateName)
+                        AuthUtils.saveUserId(getApplication(), user?.uid)
                         Log.d("TAG", "user created")
                         stateRegister.value = true
                     }
