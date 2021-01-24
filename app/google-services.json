@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1022229024680",
+    "project_id": "desafiogames-d5641",
+    "storage_bucket": "desafiogames-d5641.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1022229024680:android:4d3c5551f5c20aebde979d",
+        "android_client_info": {
+          "package_name": "com.paulo4fs.digitalgames"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1022229024680-m1befqurf8mttjgp3m3loldc7pih4d0a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCYbKeuvy3lYBtjqAPs27_i2x-6YrjtHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1022229024680-m1befqurf8mttjgp3m3loldc7pih4d0a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

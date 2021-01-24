@@ -6,12 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".authentication.view.LoginFragment">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/wallpaper" />
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginHorizontal="@dimen/dim10dp"
         app:cardCornerRadius="@dimen/dim10dp">
+
+        <ProgressBar
+            android:id="@+id/pbProgressBarLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_gravity="center" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,7 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:textColor="@color/greenLight"/>
+                    android:textColor="@color/greenLight" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -73,9 +87,9 @@
                 android:layout_marginTop="@dimen/dim10dp"
                 android:fontFamily="@font/roboto"
                 android:padding="@dimen/dim10dp"
-                app:cornerRadius="2dp"
                 android:text="@string/log_in"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="2dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/mbSignupLogin"
@@ -88,13 +102,6 @@
                 android:textAllCaps="false"
                 android:textColor="@color/blueLight" />
         </LinearLayout>
-
     </com.google.android.material.card.MaterialCardView>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:scaleType="fitXY"
-        android:layout_height="match_parent"
-        android:src="@drawable/wallpaper" />
 
 </FrameLayout>

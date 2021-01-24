@@ -12,6 +12,5 @@
     <string name="lan_amento">Lançamento:</string>
     <string name="save_game">Save game</string>
     <string name="created_at">Created at</string>
-    <string name="name">Name</string>
     <string name="description">Description</string>
 </resources>
