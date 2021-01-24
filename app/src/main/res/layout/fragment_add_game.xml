@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/wallpaper"
     android:layout_height="match_parent"
+    android:background="@drawable/wallpaper"
     tools:context=".addgame.view.AddGameFragment">
 
     <com.google.android.material.card.MaterialCardView
@@ -16,9 +16,9 @@
         app:cardCornerRadius="@dimen/dim10dp">
 
         <LinearLayout
-            android:layout_marginTop="60dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="60dp"
             android:background="@color/white"
             android:orientation="vertical">
 
@@ -36,7 +36,7 @@
                     android:id="@+id/tietNameAddGame"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
+                    android:inputType="text"
                     android:textColor="@color/greenLight" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -55,7 +55,7 @@
                     android:id="@+id/tietCreatedAtAddGame"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
+                    android:inputType="number"
                     android:textColor="@color/greenLight" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -84,19 +84,27 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dim10dp"
                 android:layout_marginTop="@dimen/dim30dp"
+                android:layout_marginBottom="@dimen/dim10dp"
                 android:fontFamily="@font/roboto"
                 android:padding="@dimen/dim10dp"
                 android:text="@string/save_game"
-                android:layout_marginBottom="@dimen/dim10dp"
                 android:textStyle="bold"
                 app:cornerRadius="2dp" />
 
         </LinearLayout>
 
+        <ProgressBar
+            android:id="@+id/pbProgressBarAddGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/llAddImageAddGame"
+        android:id="@+id/llImageAddGame"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
@@ -105,13 +113,18 @@
         app:cardCornerRadius="@dimen/dim50dp">
 
         <ImageView
-            android:id="@+id/ivImage"
+            android:id="@+id/ivImageCoverGame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"/>
+
+        <ImageView
+            android:id="@+id/ivImageCameraGame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@color/red"
             android:src="@drawable/ic_baseline_camera_alt_40"
-            app:backgroundTint="@color/red" />
+/>
 
     </com.google.android.material.card.MaterialCardView>
 
