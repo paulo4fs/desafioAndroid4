@@ -66,16 +66,19 @@
                 app:buttonTint="@color/red" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/mbLoginLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dim10dp"
                 android:layout_marginTop="@dimen/dim10dp"
                 android:fontFamily="@font/roboto"
                 android:padding="@dimen/dim10dp"
+                app:cornerRadius="2dp"
                 android:text="@string/log_in"
                 android:textStyle="bold" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/mbSignupLogin"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
