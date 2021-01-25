@@ -13,6 +13,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     var loading = MutableLiveData<Boolean>()
     var error = MutableLiveData<String>()
     var stateList = MutableLiveData<List<GameModel>>()
+    var stateQueryList = MutableLiveData<List<GameModel>>()
 
     fun getListGames() {
         loading.value = true
@@ -32,7 +33,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                     }
                 }
                 Log.d("TAG", "Home: on Data change")
-                stateList.value = games
+                stateQueryList.value = games
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -44,7 +45,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun queryFirebase(searchText: String) {
         Log.d("TAG", searchText)
-
+        loading.value = true
         val databaseReference =
             FirebaseDatabase.getInstance().getReference(getUserId(getApplication()).toString())
 
@@ -52,9 +53,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             databaseReference.orderByChild("title").startAt(searchText).endAt("${searchText}\uf8ff")
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                Log.d("TAG", "onDataChange")
+                Log.d("TAG", "Query onDataChange")
+                loading.value = false
+
                 if (dataSnapshot.exists()) {
-                    Log.d("TAG", "dataSnapshot.exists")
+                    Log.d("TAG", "Query dataSnapshot exists")
                     // dataSnapshot is the "issue" node with all children with id 0
                     val game = mutableListOf<GameModel>()
                     for (data in dataSnapshot.children) {
@@ -62,11 +65,15 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                         val gameData = data.getValue(GameModel::class.java)
                         gameData?.let { game.add(it) }
                     }
-                    stateList.value = game
+                    stateQueryList.value = game
+                } else {
+                    Log.d("TAG", "Query data no data exists")
+                    stateQueryList.value = mutableListOf<GameModel>()
                 }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
+                loading.value = false
                 Log.d("TAG", "onCancelled")
             }
         })

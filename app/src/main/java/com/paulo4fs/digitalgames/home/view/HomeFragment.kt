@@ -75,6 +75,10 @@ class HomeFragment : Fragment() {
             addAllgamesHandler(it as MutableList<GameModel>)
         })
 
+        _homeViewModel.stateQueryList.observe(viewLifecycleOwner, {
+            addAllgamesHandler(it as MutableList<GameModel>)
+        })
+
         _homeViewModel.getListGames()
     }
 
@@ -138,9 +142,10 @@ class HomeFragment : Fragment() {
                 job?.cancel()
                 job = MainScope().launch {
                     delay(500L)
-                    _homeViewModel.queryFirebase(newText.toLowerCase(Locale.ROOT))
                     if (newText.isEmpty()) {
                         _homeViewModel.getListGames()
+                    } else {
+                        _homeViewModel.queryFirebase(newText.toLowerCase(Locale.ROOT))
                     }
                 }
                 return false
