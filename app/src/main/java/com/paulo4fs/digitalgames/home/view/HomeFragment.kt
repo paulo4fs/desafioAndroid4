@@ -28,6 +28,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.*
 
 class HomeFragment : Fragment() {
     private lateinit var _view: View
@@ -124,7 +125,7 @@ class HomeFragment : Fragment() {
                 job = MainScope().launch {
                     delay(500L)
                     if (query.isNotEmpty()) {
-                        _homeViewModel.queryFirebase(query)
+                        _homeViewModel.queryFirebase(query.toLowerCase(Locale.ROOT))
                     }
                 }
                 return false
@@ -135,7 +136,7 @@ class HomeFragment : Fragment() {
                 job?.cancel()
                 job = MainScope().launch {
                     delay(500L)
-                    _homeViewModel.queryFirebase(newText)
+                    _homeViewModel.queryFirebase(newText.toLowerCase(Locale.ROOT))
                     if (newText.isEmpty()) {
                         _homeViewModel.getListGames()
                     }
