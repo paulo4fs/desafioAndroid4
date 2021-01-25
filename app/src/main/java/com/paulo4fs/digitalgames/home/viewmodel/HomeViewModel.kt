@@ -17,7 +17,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     var stateList = MutableLiveData<List<GameModel>>()
 
     fun getGames() {
-//        loading.value = true
+        loading.value = true
         val database = FirebaseDatabase.getInstance()
         val reference = database.getReference(
             getUserId(getApplication()).toString()

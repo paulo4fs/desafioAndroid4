@@ -18,7 +18,7 @@ class HomeViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         if (!image.isNullOrEmpty()) {
             Picasso.get().load(image).into(_imageView)
         } else {
-            Picasso.get().load(R.drawable.wallpaper).into(_imageView)
+            Picasso.get().load(R.drawable.placeholder).into(_imageView)
         }
     }
 }

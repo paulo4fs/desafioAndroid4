@@ -18,6 +18,10 @@ import com.paulo4fs.digitalgames.R
 import com.paulo4fs.digitalgames.addgame.model.GameModel
 import com.paulo4fs.digitalgames.home.adapter.HomeAdapter
 import com.paulo4fs.digitalgames.home.viewmodel.HomeViewModel
+import com.paulo4fs.digitalgames.utils.Constants.CREATED_AT
+import com.paulo4fs.digitalgames.utils.Constants.DESCRIPTION
+import com.paulo4fs.digitalgames.utils.Constants.IMAGE_URL
+import com.paulo4fs.digitalgames.utils.Constants.TITLE
 
 class HomeFragment : Fragment() {
     private lateinit var _view: View
@@ -49,8 +53,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        _homeViewModel.getGames()
-
         _homeViewModel.loading.observe(viewLifecycleOwner, {
             showLoading(it)
         })
@@ -60,8 +62,14 @@ class HomeFragment : Fragment() {
         })
 
         _homeViewModel.stateList.observe(viewLifecycleOwner, {
-            _gameList.addAll(it)
+            if (it.size != _gameList.size) {
+                _gameList.clear()
+                _gameList.addAll(it)
+                _gameAdapter.notifyDataSetChanged()
+            }
         })
+
+        _homeViewModel.getGames()
     }
 
     private fun addRecyclerView() {
@@ -69,7 +77,7 @@ class HomeFragment : Fragment() {
         val manager = GridLayoutManager(_view.context, 2)
 
         _gameAdapter = HomeAdapter(_gameList) {
-            navigateToGame(it.title)
+            navigateToGame(it)
         }
 
         _recyclerView.apply {
@@ -79,15 +87,19 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun navigateToGame(title: String) {
-        val bundle = bundleOf("title" to title)
+    private fun navigateToGame(gameModel: GameModel) {
+        val bundle = bundleOf(
+            IMAGE_URL to gameModel.imageUrl,
+            TITLE to gameModel.title,
+            CREATED_AT to gameModel.createdAt,
+            DESCRIPTION to gameModel.description
+        )
         _navController.navigate(R.id.action_homeFragment_to_gameFragment, bundle)
     }
 
     private fun addNewGameHandler() {
         val fabAddBtn = _view.findViewById<FloatingActionButton>(R.id.fabAddGameHome)
         fabAddBtn.setOnClickListener {
-
             _navController.navigate(R.id.action_homeFragment_to_addGameFragment)
         }
     }

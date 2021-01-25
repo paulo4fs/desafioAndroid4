@@ -5,10 +5,10 @@ object Constants {
     const val UIID_KEY: String = "UIID"
     const val LOGIN_KEY: String = "LOGIN_KEY"
     const val GAMES_PATH: String = "/games"
-    const val USER_NAME: String = "USER_NAME"
-    const val USER_EMAIL: String = "USER_EMAIL"
-    const val USER_SIGN_IN_METHOD: String = "USER_SIGN_IN_METHOD"
-    const val USER_PHOTO_URL: String = "USER_PHOTO_URL"
+    const val TITLE: String = "title"
+    const val DESCRIPTION: String = "description"
+    const val CREATED_AT: String = "createdat"
+    const val IMAGE_URL: String = "IMAGEURL"
     const val EMPTY_STRING: String = ""
     const val READ_STORAGE_PERMISSION_CODE = 1
     const val PICK_IMAGE_REQUEST_CODE = 2

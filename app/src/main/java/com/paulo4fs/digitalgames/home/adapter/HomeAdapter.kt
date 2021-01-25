@@ -24,6 +24,7 @@ class HomeAdapter(
         val createdAt = item.createdAt
 
         holder.bind(image, title, createdAt)
+        holder.itemView.setOnClickListener { listener(item) }
     }
 
     override fun getItemCount() = _gamesList.size
