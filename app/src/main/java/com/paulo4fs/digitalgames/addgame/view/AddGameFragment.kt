@@ -96,7 +96,7 @@ class AddGameFragment : Fragment() {
     }
 
     private fun imageListener() {
-        val imageView = _view.findViewById<ImageView>(R.id.ivImageCameraGame)
+        val imageView = _view.findViewById<ImageView>(R.id.ivImageCameraAddGame)
         imageView.setOnClickListener {
             if (ContextCompat.checkSelfPermission(
                     _view.context,
@@ -173,7 +173,7 @@ class AddGameFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE_REQUEST_CODE && data!!.data != null) {
             _selectedImageUri = data.data
 
-            val profileImageView = _view.findViewById<ImageView>(R.id.ivImageCoverGame)
+            val profileImageView = _view.findViewById<ImageView>(R.id.ivImageCoverAddGame)
             Picasso.get().load(_selectedImageUri).fit().centerCrop().into(profileImageView)
         }
     }
