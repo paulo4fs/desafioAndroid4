@@ -83,7 +83,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             }
     }
 
-    fun errorMessage(s: String) {
+    private fun errorMessage(s: String) {
         error.value = s
     }
 }

@@ -56,7 +56,7 @@ class LoginFragment : Fragment() {
 
         _authViewModel.stateLogin.observe(viewLifecycleOwner, {
             if (it) {
-                snackBarMessage("Login realizado com sucesso")
+                snackBarMessage("Login successful")
                 navToHome()
             }
         })
@@ -106,7 +106,7 @@ class LoginFragment : Fragment() {
                     password.text.toString()
                 )
             } else {
-                snackBarMessage("preencha os campos corretamente")
+                snackBarMessage("Fill all the fields")
             }
         }
     }

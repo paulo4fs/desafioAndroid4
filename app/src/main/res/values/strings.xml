@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">DigitalGames</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="log_in">log in</string>
@@ -13,4 +11,12 @@
     <string name="save_game">Save game</string>
     <string name="created_at">Created at</string>
     <string name="description">Description</string>
+    <string name="game_item_image">game item image</string>
+    <string name="background">background</string>
+    <string name="add_item_fab">Add item floating action button</string>
+    <string name="cover_image">cover image</string>
+    <string name="back_image_button">back image button</string>
+    <string name="edit_game_fab">edit game floating action button</string>
+    <string name="chosen_image_area">chosen image area</string>
+    <string name="add_photo_image">add photo image area</string>
 </resources>

@@ -127,7 +127,7 @@ class AddGameViewModel(application: Application) : AndroidViewModel(application)
 
                     }.addOnFailureListener {
                         loading.value = false
-                        errorMessage("erro ao obter imagem")
+                        errorMessage("Error storing image")
                         stateImage.value = ""
                     }
                 }

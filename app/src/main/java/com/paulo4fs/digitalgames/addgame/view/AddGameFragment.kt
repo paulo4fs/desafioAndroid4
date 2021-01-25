@@ -207,7 +207,7 @@ class AddGameFragment : Fragment() {
         ) {
             showImagePicker()
         } else {
-            snackBarMessage("Permissão negada")
+            snackBarMessage("Permission denied")
         }
     }
 

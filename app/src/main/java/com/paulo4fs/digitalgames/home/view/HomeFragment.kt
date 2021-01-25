@@ -151,12 +151,10 @@ class HomeFragment : Fragment() {
                 return false
             }
         })
-        searchBar.setOnCloseListener(object : SearchView.OnCloseListener {
-            override fun onClose(): Boolean {
-                _homeViewModel.getListGames()
-                return true
-            }
-        })
+        searchBar.setOnCloseListener {
+            _homeViewModel.getListGames()
+            true
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {

@@ -47,20 +47,20 @@ class SignupFragment : Fragment() {
 
         _authViewModel.stateRegister.observe(viewLifecycleOwner, {
             if (it) {
-                snackBarMessage("Conta criada com sucesso")
+                snackBarMessage("Account created successfully")
                 navToLogin()
             }
         })
     }
 
     private fun signUpHandler() {
-        val signupBtn = _view.findViewById<MaterialButton>(R.id.mbSignupSignup)
+        val signUpBtn = _view.findViewById<MaterialButton>(R.id.mbSignupSignup)
         val nameView = _view.findViewById<TextInputEditText>(R.id.tietNameSignup)
         val emailView = _view.findViewById<TextInputEditText>(R.id.tietEmailSignup)
         val passwordView = _view.findViewById<TextInputEditText>(R.id.tietPasswordSignup)
         val passwordConfirmationView =
             _view.findViewById<TextInputEditText>(R.id.tietPasswordConfirmationSignup)
-        signupBtn.setOnClickListener {
+        signUpBtn.setOnClickListener {
             AuthUtils.hideKeyboard(_view)
             when {
                 AuthUtils.validateNameEmailPassword(

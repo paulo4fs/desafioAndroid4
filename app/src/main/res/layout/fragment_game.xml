@@ -13,6 +13,7 @@
         android:layout_height="@dimen/dim240dp"
         android:scaleType="center"
         app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/cover_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/backgrounds/scenic" />
@@ -20,6 +21,7 @@
     <ImageButton
         android:id="@+id/ibBackBtnGame"
         android:layout_width="wrap_content"
+        android:contentDescription="@string/back_image_button"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dim10dp"
         android:layout_marginStart="@dimen/dim10dp"
@@ -53,6 +55,7 @@
         android:layout_marginEnd="@dimen/dim10dp"
         android:src="@drawable/ic_outline_edit_24"
         app:backgroundTint="@color/red"
+        android:contentDescription="@string/edit_game_fab"
         app:cornerRadius="@dimen/dim40dp"
         app:layout_constraintBottom_toBottomOf="@+id/ivCoverGame"
         app:layout_constraintEnd_toEndOf="parent"

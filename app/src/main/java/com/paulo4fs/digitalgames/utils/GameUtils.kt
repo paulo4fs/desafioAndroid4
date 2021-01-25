@@ -1,7 +1,6 @@
 package com.paulo4fs.digitalgames.utils
 
 import android.net.Uri
-import android.util.Patterns
 import android.view.View
 import android.webkit.MimeTypeMap
 

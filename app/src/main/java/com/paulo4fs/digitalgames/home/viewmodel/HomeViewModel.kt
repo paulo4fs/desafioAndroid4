@@ -27,8 +27,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 val games = mutableListOf<GameModel>()
                 loading.value = false
                 if (snapshot.hasChildren()) {
-                    snapshot.children.forEach {
-                        val game = it.getValue(GameModel::class.java)
+                    snapshot.children.forEach { snapshotChildren ->
+                        val game = snapshotChildren.getValue(GameModel::class.java)
                         game?.let { games.add(it) }
                     }
                 }
@@ -38,7 +38,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
             override fun onCancelled(error: DatabaseError) {
                 Log.d("TAG", "Home: cancelled")
-                TODO("Not yet implemented")
             }
         })
     }
@@ -68,7 +67,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                     stateQueryList.value = game
                 } else {
                     Log.d("TAG", "Query data no data exists")
-                    stateQueryList.value = mutableListOf<GameModel>()
+                    stateQueryList.value = mutableListOf()
                 }
             }
 

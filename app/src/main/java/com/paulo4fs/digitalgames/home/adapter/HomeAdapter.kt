@@ -42,7 +42,7 @@ class HomeAdapter(
         fun bind(image: String, title: String, createdAt: Int) {
             _titleView.text = title.capitalize(Locale.ROOT)
             _createdAtView.text = createdAt.toString()
-            if (!image.isEmpty()) {
+            if (image.isNotEmpty()) {
                 Picasso.get().load(image).into(_imageView)
             } else {
                 Picasso.get().load(R.drawable.placeholder).into(_imageView)

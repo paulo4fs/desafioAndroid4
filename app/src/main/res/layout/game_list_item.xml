@@ -22,6 +22,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:scaleType="centerCrop"
+            android:contentDescription="@string/game_item_image"
             tools:src="@tools:sample/avatars" />
 
         <TextView
