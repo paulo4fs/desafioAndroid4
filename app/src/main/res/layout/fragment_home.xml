@@ -7,7 +7,7 @@
     android:background="@color/LightGray"
     tools:context=".home.view.HomeFragment">
 
-    <androidx.appcompat.widget.SearchView
+    <SearchView
         android:id="@+id/svSearchViewHome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

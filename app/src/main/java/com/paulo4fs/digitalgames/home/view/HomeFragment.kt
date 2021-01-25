@@ -1,12 +1,14 @@
 package com.paulo4fs.digitalgames.home.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.SearchView
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -22,6 +24,10 @@ import com.paulo4fs.digitalgames.utils.Constants.CREATED_AT
 import com.paulo4fs.digitalgames.utils.Constants.DESCRIPTION
 import com.paulo4fs.digitalgames.utils.Constants.IMAGE_URL
 import com.paulo4fs.digitalgames.utils.Constants.TITLE
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
     private lateinit var _view: View
@@ -50,6 +56,7 @@ class HomeFragment : Fragment() {
         addRecyclerView()
         initViewModel()
         addNewGameHandler()
+        searchListener()
     }
 
     private fun initViewModel() {
@@ -62,14 +69,18 @@ class HomeFragment : Fragment() {
         })
 
         _homeViewModel.stateList.observe(viewLifecycleOwner, {
-            if (it.size != _gameList.size) {
-                _gameList.clear()
-                _gameList.addAll(it)
-                _gameAdapter.notifyDataSetChanged()
-            }
+            Log.d("TAG", "stateList viewmodel")
+            addAllgamesHandler(it as MutableList<GameModel>)
         })
 
-        _homeViewModel.getGames()
+        _homeViewModel.getListGames()
+    }
+
+    private fun addAllgamesHandler(list: MutableList<GameModel>) {
+        Log.d("TAG", "items added to the list")
+        _gameList.clear()
+        _gameList.addAll(list)
+        _gameAdapter.notifyDataSetChanged()
     }
 
     private fun addRecyclerView() {
@@ -102,6 +113,35 @@ class HomeFragment : Fragment() {
         fabAddBtn.setOnClickListener {
             _navController.navigate(R.id.action_homeFragment_to_addGameFragment)
         }
+    }
+
+    private fun searchListener() {
+        var job: Job? = null
+        val searchBar = _view.findViewById<SearchView>(R.id.svSearchViewHome)
+        searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                Log.i("well", " this worked")
+                job?.cancel()
+                job = MainScope().launch {
+                    delay(500L)
+                    _homeViewModel.queryFirebase(newText)
+                    if (newText.isEmpty()) {
+                        _homeViewModel.getListGames()
+                    }
+                }
+                return false
+            }
+        })
+        searchBar.setOnCloseListener(object : SearchView.OnCloseListener {
+            override fun onClose(): Boolean {
+                _homeViewModel.getListGames()
+                return true
+            }
+        })
     }
 
     private fun showLoading(isLoading: Boolean) {
