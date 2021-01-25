@@ -8,12 +8,15 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.paulo4fs.digitalgames.R
-import com.paulo4fs.digitalgames.utils.Constants
-import com.paulo4fs.digitalgames.utils.Constants.CREATED_AT
-import com.paulo4fs.digitalgames.utils.Constants.DESCRIPTION
-import com.paulo4fs.digitalgames.utils.Constants.IMAGE_URL
-import com.paulo4fs.digitalgames.utils.Constants.TITLE
+import com.paulo4fs.digitalgames.utils.Constants.GAME_CREATED_AT
+import com.paulo4fs.digitalgames.utils.Constants.GAME_DESCRIPTION
+import com.paulo4fs.digitalgames.utils.Constants.GAME_ID
+import com.paulo4fs.digitalgames.utils.Constants.GAME_IMAGE_URL
+import com.paulo4fs.digitalgames.utils.Constants.GAME_TITLE
 import com.squareup.picasso.Picasso
 
 class GameFragment : Fragment() {
@@ -36,10 +39,11 @@ class GameFragment : Fragment() {
     }
 
     private fun argumentsHandler() {
-        val imageUrl = arguments?.getString(IMAGE_URL)
-        val title = arguments?.getString(TITLE)
-        val createdat = arguments?.getInt(CREATED_AT)
-        val description = arguments?.getString(DESCRIPTION)
+        val id = arguments?.getString(GAME_ID)
+        val imageUrl = arguments?.getString(GAME_IMAGE_URL)
+        val title = arguments?.getString(GAME_TITLE)
+        val createdAt = arguments?.getInt(GAME_CREATED_AT)
+        val description = arguments?.getString(GAME_DESCRIPTION)
 
         val imageCoverView = _view.findViewById<ImageView>(R.id.ivCoverGame)
         val titleView = _view.findViewById<TextView>(R.id.tvTitleGame)
@@ -55,8 +59,33 @@ class GameFragment : Fragment() {
 
         titleView.text = title
         title2View.text = title
-        createdAtView.text = createdat.toString()
+        createdAtView.text = createdAt.toString()
         descriptionView.text = description
+
+        editListener(id, imageUrl, title, createdAt, description)
+    }
+
+    private fun editListener(
+        id: String?,
+        imageUrl: String?,
+        title: String?,
+        createdAt: Int?,
+        description: String?
+    ) {
+        val editFab = _view.findViewById<FloatingActionButton>(R.id.fabEditBtnGame)
+        editFab.setOnClickListener {
+            if (!title.isNullOrEmpty()) {
+                val bundle = bundleOf(
+                    GAME_ID to id,
+                    GAME_IMAGE_URL to imageUrl,
+                    GAME_TITLE to title,
+                    GAME_CREATED_AT to createdAt,
+                    GAME_DESCRIPTION to description
+                )
+                val navController = findNavController()
+                navController.navigate(R.id.action_gameFragment_to_addGameFragment, bundle)
+            }
+        }
     }
 
     private fun backButtonListener() {

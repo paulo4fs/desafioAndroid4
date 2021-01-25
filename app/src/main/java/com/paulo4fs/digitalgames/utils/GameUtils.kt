@@ -12,9 +12,9 @@ object GameUtils {
             .getExtensionFromMimeType(view.context.contentResolver.getType(uri!!))
     }
 
-    fun validateText(title: String, date: String, description: String): Boolean {
+    fun validateText(title: String?, date: String?, description: String?): Boolean {
         return when {
-            title.isEmpty() || date.isEmpty() || description.isEmpty() -> {
+            title.isNullOrEmpty() || date.isNullOrEmpty() || description.isNullOrEmpty() -> {
                 false
             }
             else -> true

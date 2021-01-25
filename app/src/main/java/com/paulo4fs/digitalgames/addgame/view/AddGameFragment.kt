@@ -26,6 +26,7 @@ import com.paulo4fs.digitalgames.R
 import com.paulo4fs.digitalgames.addgame.model.GameModel
 import com.paulo4fs.digitalgames.addgame.viewmodel.AddGameViewModel
 import com.paulo4fs.digitalgames.utils.AuthUtils.hideKeyboard
+import com.paulo4fs.digitalgames.utils.Constants
 import com.paulo4fs.digitalgames.utils.Constants.PICK_IMAGE_REQUEST_CODE
 import com.paulo4fs.digitalgames.utils.Constants.READ_STORAGE_PERMISSION_CODE
 import com.paulo4fs.digitalgames.utils.GameUtils.validateText
@@ -56,8 +57,31 @@ class AddGameFragment : Fragment() {
         _navController = findNavController()
 
         initViewModel()
+        argumentsListener()
         imageListener()
         addGameListener()
+    }
+
+    private fun argumentsListener() {
+        val imageUrl = arguments?.getString(Constants.GAME_IMAGE_URL)
+        val title = arguments?.getString(Constants.GAME_TITLE)
+        val createdAt = arguments?.getInt(Constants.GAME_CREATED_AT)
+        val description = arguments?.getString(Constants.GAME_DESCRIPTION)
+
+        if (validateText(title, createdAt.toString(), description)) {
+            val imageView = _view.findViewById<ImageView>(R.id.ivImageCoverAddGame)
+            val titleView = _view.findViewById<TextInputEditText>(R.id.tietNameAddGame)
+            val createdAtView = _view.findViewById<TextInputEditText>(R.id.tietCreatedAtAddGame)
+            val descriptionView = _view.findViewById<TextInputEditText>(R.id.tietDescriptionAddGame)
+
+            titleView.setText(title!!.capitalize(Locale.ROOT))
+            createdAtView.setText(createdAt.toString())
+            descriptionView.setText(description!!.capitalize(Locale.ROOT))
+            if (!imageUrl.isNullOrEmpty()) {
+                _gameImageUrl = imageUrl
+                Picasso.get().load(imageUrl).into(imageView)
+            }
+        }
     }
 
     private fun initViewModel() {
@@ -70,13 +94,20 @@ class AddGameFragment : Fragment() {
         })
 
         _addGameViewModel.stateGameRegistered.observe(viewLifecycleOwner, {
+            snackBarMessage("Game added with success")
+            navigateHome(it)
+        })
+
+        _addGameViewModel.stateGameUpdated.observe(viewLifecycleOwner, {
+            snackBarMessage("Game updated with success")
             navigateHome(it)
         })
 
         _addGameViewModel.stateImage.observe(viewLifecycleOwner, { state ->
             state?.let {
-                snackBarMessage("Imagem atualizada")
-                _gameImageUrl = state
+                if (it != "") {
+                    _gameImageUrl = it
+                }
                 addGameHandler()
             }
         })
@@ -86,7 +117,15 @@ class AddGameFragment : Fragment() {
         val titleView = _view.findViewById<TextInputEditText>(R.id.tietNameAddGame)
         val createdAtView = _view.findViewById<TextInputEditText>(R.id.tietCreatedAtAddGame)
         val descriptionView = _view.findViewById<TextInputEditText>(R.id.tietDescriptionAddGame)
+
+        val gameId = if (arguments?.getString(Constants.GAME_ID) != null) {
+            arguments?.getString(Constants.GAME_ID)
+        } else {
+            ""
+        }
+
         val game = GameModel(
+            gameId!!,
             _gameImageUrl!!,
             titleView.text.toString().toLowerCase(Locale.ROOT),
             createdAtView.text.toString().toInt(),
@@ -121,15 +160,16 @@ class AddGameFragment : Fragment() {
 
         confirmBtn.setOnClickListener {
             hideKeyboard(_view)
-            if(validateText(
-                titleView.text.toString(),
-                createdAtView.text.toString(),
-                descriptionView.text.toString()
-            )) {
+            if (validateText(
+                    titleView.text.toString(),
+                    createdAtView.text.toString(),
+                    descriptionView.text.toString()
+                )
+            ) {
                 _addGameViewModel.updateGamePhoto(
                     _view, _selectedImageUri
                 )
-            }else{
+            } else {
                 snackBarMessage("Fill all the fields")
             }
         }
@@ -183,10 +223,9 @@ class AddGameFragment : Fragment() {
 
     private fun navigateHome(isUpdated: Boolean) {
         if (isUpdated) {
-            snackBarMessage("Game added with success")
             hideKeyboard(_view)
             Handler(Looper.getMainLooper()).postDelayed({
-                requireActivity().onBackPressed()
+                _navController.navigate(R.id.action_addGameFragment_to_homeFragment)
             }, 1500)
         }
     }

@@ -3,6 +3,8 @@ package com.paulo4fs.digitalgames.addgame.model
 import com.google.gson.annotations.SerializedName
 
 data class GameModel(
+    @SerializedName("id")
+    var id: String = "",
     @SerializedName("imageUrl")
     var imageUrl: String = "",
     @SerializedName("title")

@@ -17,6 +17,7 @@ class AddGameViewModel(application: Application) : AndroidViewModel(application)
     var loading = MutableLiveData<Boolean>()
     var error = MutableLiveData<String>()
     var stateGameRegistered = MutableLiveData<Boolean>()
+    var stateGameUpdated = MutableLiveData<Boolean>()
     var stateImage = MutableLiveData<String>()
 
     fun createGame(
@@ -33,16 +34,15 @@ class AddGameViewModel(application: Application) : AndroidViewModel(application)
                 var gameAdded = false
 
                 if (snapshot.hasChildren()) {
-                    snapshot.children.forEach {
-                        val firebaseResult = it.getValue(GameModel::class.java)
-                        if (firebaseResult?.title != null && firebaseResult.title == gameModel.title) {
+                    for (data in snapshot.children) {
+                        val firebaseResult = data.getValue(GameModel::class.java)
+                        if (firebaseResult?.id == gameModel.id) {
                             gameAdded = true
                         }
                     }
                 }
                 if (gameAdded) {
-                    errorMessage("The game already exists")
-                    loading.value = false
+                    updateGameFirebase(reference, gameModel)
                 } else {
                     saveGameFirebase(reference, gameModel)
                 }
@@ -55,11 +55,31 @@ class AddGameViewModel(application: Application) : AndroidViewModel(application)
         })
     }
 
+    private fun updateGameFirebase(reference: DatabaseReference, gameModel: GameModel) {
+        Log.d("TAG", "update no firebase")
+        reference.child(gameModel.id).setValue(gameModel)
+
+        reference.child(gameModel.id).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                loading.value = false
+                Log.d("TAG", "jogo atualizado")
+                stateGameUpdated.value = true
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                loading.value = false
+                Log.d("TAG", "jogo não atualizado")
+                errorMessage("Couldn't update the game")
+            }
+        })
+    }
+
     private fun saveGameFirebase(reference: DatabaseReference, gameModel: GameModel) {
         Log.d("TAG", "adicionando no firebase")
         val key = reference.push().key
 
         key?.let {
+            gameModel.id = key
             reference.child(it).setValue(gameModel)
 
             reference.child(key).addListenerForSingleValueEvent(object : ValueEventListener {

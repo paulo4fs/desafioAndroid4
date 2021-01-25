@@ -20,10 +20,11 @@ import com.paulo4fs.digitalgames.R
 import com.paulo4fs.digitalgames.addgame.model.GameModel
 import com.paulo4fs.digitalgames.home.adapter.HomeAdapter
 import com.paulo4fs.digitalgames.home.viewmodel.HomeViewModel
-import com.paulo4fs.digitalgames.utils.Constants.CREATED_AT
-import com.paulo4fs.digitalgames.utils.Constants.DESCRIPTION
-import com.paulo4fs.digitalgames.utils.Constants.IMAGE_URL
-import com.paulo4fs.digitalgames.utils.Constants.TITLE
+import com.paulo4fs.digitalgames.utils.Constants.GAME_CREATED_AT
+import com.paulo4fs.digitalgames.utils.Constants.GAME_DESCRIPTION
+import com.paulo4fs.digitalgames.utils.Constants.GAME_ID
+import com.paulo4fs.digitalgames.utils.Constants.GAME_IMAGE_URL
+import com.paulo4fs.digitalgames.utils.Constants.GAME_TITLE
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -101,10 +102,11 @@ class HomeFragment : Fragment() {
 
     private fun navigateToGame(gameModel: GameModel) {
         val bundle = bundleOf(
-            IMAGE_URL to gameModel.imageUrl,
-            TITLE to gameModel.title,
-            CREATED_AT to gameModel.createdAt,
-            DESCRIPTION to gameModel.description
+            GAME_ID to gameModel.id,
+            GAME_IMAGE_URL to gameModel.imageUrl,
+            GAME_TITLE to gameModel.title,
+            GAME_CREATED_AT to gameModel.createdAt,
+            GAME_DESCRIPTION to gameModel.description
         )
         _navController.navigate(R.id.action_homeFragment_to_gameFragment, bundle)
     }
@@ -132,7 +134,7 @@ class HomeFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                Log.i("TAG", " Query changed")
+                Log.i("TAG", "Query changed")
                 job?.cancel()
                 job = MainScope().launch {
                     delay(500L)

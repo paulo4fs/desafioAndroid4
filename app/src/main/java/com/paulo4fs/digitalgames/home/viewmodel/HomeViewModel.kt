@@ -25,9 +25,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val games = mutableListOf<GameModel>()
                 loading.value = false
-                snapshot.children.forEach {
-                    val game = it.getValue(GameModel::class.java)
-                    game?.let { games.add(it) }
+                if (snapshot.hasChildren()) {
+                    snapshot.children.forEach {
+                        val game = it.getValue(GameModel::class.java)
+                        game?.let { games.add(it) }
+                    }
                 }
                 Log.d("TAG", "Home: on Data change")
                 stateList.value = games
