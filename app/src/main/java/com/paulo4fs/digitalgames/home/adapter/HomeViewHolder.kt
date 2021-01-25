@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.paulo4fs.digitalgames.R
 import com.squareup.picasso.Picasso
+import java.util.*
 
 class HomeViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     private val _imageView = view.findViewById<ImageView>(R.id.ivCoverList)
@@ -13,9 +14,9 @@ class HomeViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     private val _createdAtView = view.findViewById<TextView>(R.id.tvCreatedAtList)
 
     fun bind(image: String, title: String, createdAt: Int) {
-        _titleView.text = title
+        _titleView.text = title.capitalize(Locale.ROOT)
         _createdAtView.text = createdAt.toString()
-        if (!image.isNullOrEmpty()) {
+        if (!image.isEmpty()) {
             Picasso.get().load(image).into(_imageView)
         } else {
             Picasso.get().load(R.drawable.placeholder).into(_imageView)

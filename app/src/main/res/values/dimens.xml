@@ -5,10 +5,12 @@
     <dimen name="dim8dp">8dp</dimen>
     <dimen name="dim5dp">5dp</dimen>
     <dimen name="dim18sp">18sp</dimen>
-    <dimen name="dim16sp">16dp</dimen>
+    <dimen name="dim16sp">16sp</dimen>
     <dimen name="dim16dp">16dp</dimen>
     <dimen name="dim240dp">240dp</dimen>
     <dimen name="dim30dp">30dp</dimen>
     <dimen name="dim40dp">40dp</dimen>
     <dimen name="dim50dp">50dp</dimen>
+    <dimen name="dim25sp">25sp</dimen>
+    <dimen name="dim100dp">100dp</dimen>
 </resources>

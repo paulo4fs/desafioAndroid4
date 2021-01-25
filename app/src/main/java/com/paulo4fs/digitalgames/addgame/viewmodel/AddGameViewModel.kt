@@ -11,7 +11,7 @@ import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.paulo4fs.digitalgames.addgame.model.GameModel
 import com.paulo4fs.digitalgames.utils.AuthUtils.getUserId
-import com.paulo4fs.digitalgames.utils.ProfileUtils
+import com.paulo4fs.digitalgames.utils.GameUtils
 
 class AddGameViewModel(application: Application) : AndroidViewModel(application) {
     var loading = MutableLiveData<Boolean>()
@@ -95,7 +95,7 @@ class AddGameViewModel(application: Application) : AndroidViewModel(application)
                 "GAME_IMAGE_" +
                         System.currentTimeMillis() +
                         "." +
-                        ProfileUtils.getFileExtension(view, imageUri)
+                        GameUtils.getFileExtension(view, imageUri)
             )
 
             storageReference.putFile(imageUri)

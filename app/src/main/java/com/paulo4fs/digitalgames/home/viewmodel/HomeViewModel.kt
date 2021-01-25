@@ -47,7 +47,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             FirebaseDatabase.getInstance().getReference(getUserId(getApplication()).toString())
 
         val query: Query =
-            databaseReference.orderByChild("title").startAt(searchText)
+            databaseReference.orderByChild("title").startAt(searchText).endAt("${searchText}\uf8ff")
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 Log.d("TAG", "onDataChange")

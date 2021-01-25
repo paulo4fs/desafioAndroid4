@@ -24,7 +24,7 @@ object AuthUtils {
         return preferences.getString(UIID_KEY, EMPTY_STRING)
     }
 
-    fun validadeEmailPassword(email: String?, password: String?): Boolean {
+    fun validateEmailPassword(email: String?, password: String?): Boolean {
         return when {
             email.isNullOrEmpty() || password.isNullOrEmpty() -> {
                 false
@@ -39,7 +39,7 @@ object AuthUtils {
         }
     }
 
-    fun validadeNameEmailPassword(
+    fun validateNameEmailPassword(
         name: String?,
         email: String?,
         password: String?,

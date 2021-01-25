@@ -9,13 +9,13 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -28,7 +28,10 @@ import com.paulo4fs.digitalgames.addgame.viewmodel.AddGameViewModel
 import com.paulo4fs.digitalgames.utils.AuthUtils.hideKeyboard
 import com.paulo4fs.digitalgames.utils.Constants.PICK_IMAGE_REQUEST_CODE
 import com.paulo4fs.digitalgames.utils.Constants.READ_STORAGE_PERMISSION_CODE
+import com.paulo4fs.digitalgames.utils.GameUtils.validateText
 import com.squareup.picasso.Picasso
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AddGameFragment : Fragment() {
     private lateinit var _view: View
@@ -38,9 +41,6 @@ class AddGameFragment : Fragment() {
     private lateinit var _navController: NavController
     private var _selectedImageUri: Uri? = null
     private var _gameImageUrl: String? = null
-    private var _gameName: String? = null
-    private var _gameYear: Int? = null
-    private var _gameDescription: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,7 +88,7 @@ class AddGameFragment : Fragment() {
         val descriptionView = _view.findViewById<TextInputEditText>(R.id.tietDescriptionAddGame)
         val game = GameModel(
             _gameImageUrl!!,
-            titleView.text.toString(),
+            titleView.text.toString().toLowerCase(Locale.ROOT),
             createdAtView.text.toString().toInt(),
             descriptionView.text.toString()
         )
@@ -114,21 +114,24 @@ class AddGameFragment : Fragment() {
     }
 
     private fun addGameListener() {
-
         val confirmBtn = _view.findViewById<MaterialButton>(R.id.mbSaveAddGame)
+        val titleView = _view.findViewById<TextInputEditText>(R.id.tietNameAddGame)
+        val createdAtView = _view.findViewById<TextInputEditText>(R.id.tietCreatedAtAddGame)
+        val descriptionView = _view.findViewById<TextInputEditText>(R.id.tietDescriptionAddGame)
 
         confirmBtn.setOnClickListener {
-            _addGameViewModel.updateGamePhoto(
-                _view, _selectedImageUri
-            )
-/*            _addGameViewModel.createGame(
-                GameModel(
-                    "",
-                    titleView.text.toString(),
-                    createdAtView.text.toString().toInt(),
-                    descriptionView.text.toString()
+            hideKeyboard(_view)
+            if(validateText(
+                titleView.text.toString(),
+                createdAtView.text.toString(),
+                descriptionView.text.toString()
+            )) {
+                _addGameViewModel.updateGamePhoto(
+                    _view, _selectedImageUri
                 )
-            )*/
+            }else{
+                snackBarMessage("Fill all the fields")
+            }
         }
 
     }

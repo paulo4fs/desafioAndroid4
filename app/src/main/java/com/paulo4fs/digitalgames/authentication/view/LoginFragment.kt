@@ -16,7 +16,7 @@ import com.paulo4fs.digitalgames.R
 import com.paulo4fs.digitalgames.authentication.viewmodel.AuthViewModel
 import com.paulo4fs.digitalgames.utils.AuthUtils.hideKeyboard
 import com.paulo4fs.digitalgames.utils.AuthUtils.saveLoginPrefs
-import com.paulo4fs.digitalgames.utils.AuthUtils.validadeEmailPassword
+import com.paulo4fs.digitalgames.utils.AuthUtils.validateEmailPassword
 
 class LoginFragment : Fragment() {
     private lateinit var _view: View
@@ -99,7 +99,7 @@ class LoginFragment : Fragment() {
 
             saveLoginPrefs(requireActivity(), checkBox.isChecked)
 
-            if (validadeEmailPassword(email.text.toString(), password.text.toString())) {
+            if (validateEmailPassword(email.text.toString(), password.text.toString())) {
                 _authViewModel.loginUser(
                     requireActivity(),
                     email.text.toString(),

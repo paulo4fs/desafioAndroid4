@@ -19,14 +19,6 @@
         android:layout_marginHorizontal="@dimen/dim10dp"
         app:cardCornerRadius="@dimen/dim10dp">
 
-        <ProgressBar
-            android:id="@+id/pbProgressBarLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            tools:visibility="visible"
-            android:layout_gravity="center" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -103,6 +95,15 @@
                 android:textAllCaps="false"
                 android:textColor="@color/blueLight" />
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/pbProgressBarLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_gravity="center" />
+
     </com.google.android.material.card.MaterialCardView>
 
 </FrameLayout>

@@ -120,11 +120,18 @@ class HomeFragment : Fragment() {
         val searchBar = _view.findViewById<SearchView>(R.id.svSearchViewHome)
         searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
+                job?.cancel()
+                job = MainScope().launch {
+                    delay(500L)
+                    if (query.isNotEmpty()) {
+                        _homeViewModel.queryFirebase(query)
+                    }
+                }
                 return false
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                Log.i("well", " this worked")
+                Log.i("TAG", " Query changed")
                 job?.cancel()
                 job = MainScope().launch {
                     delay(500L)

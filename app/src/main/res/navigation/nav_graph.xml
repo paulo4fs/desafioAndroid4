@@ -39,10 +39,19 @@
         android:id="@+id/gameFragment"
         android:name="com.paulo4fs.digitalgames.game.view.GameFragment"
         android:label="fragment_game"
-        tools:layout="@layout/fragment_game" />
+        tools:layout="@layout/fragment_game" >
+        <action
+            android:id="@+id/action_gameFragment_to_addGameFragment"
+            app:destination="@id/addGameFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addGameFragment"
         android:name="com.paulo4fs.digitalgames.addgame.view.AddGameFragment"
         android:label="fragment_add_game"
-        tools:layout="@layout/fragment_add_game" />
+        tools:layout="@layout/fragment_add_game" >
+        <action
+            android:id="@+id/action_addGameFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/nav_graph" />
+    </fragment>
 </navigation>

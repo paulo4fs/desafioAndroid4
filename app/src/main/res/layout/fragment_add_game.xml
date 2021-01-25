@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,7 +13,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginHorizontal="@dimen/dim10dp"
-        app:cardCornerRadius="@dimen/dim10dp">
+        app:cardCornerRadius="@dimen/dim10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/llImageAddGame"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,7 +78,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
-                    android:textColor="@color/greenLight" />
+                    android:lines="4"
+                    android:scrollbars="vertical"
+                    android:textColor="@color/greenLight"
+/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,27 +112,29 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/llImageAddGame"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/dim100dp"
+        android:layout_height="@dimen/dim100dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="185dp"
         app:cardBackgroundColor="@color/red"
-        app:cardCornerRadius="@dimen/dim50dp">
+        app:cardCornerRadius="@dimen/dim50dp"
+        app:layout_constraintTop_toTopOf="@+id/mcvMaterialCardAddGame"
+        app:layout_constraintBottom_toTopOf="@+id/mcvMaterialCardAddGame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:id="@+id/ivImageCoverAddGame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop" />
 
         <ImageView
             android:id="@+id/ivImageCameraAddGame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/ic_baseline_camera_alt_40"
-/>
+            android:src="@drawable/ic_baseline_camera_alt_40" />
 
     </com.google.android.material.card.MaterialCardView>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

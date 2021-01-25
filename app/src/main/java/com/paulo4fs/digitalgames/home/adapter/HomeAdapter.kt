@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.paulo4fs.digitalgames.R
 import com.paulo4fs.digitalgames.addgame.model.GameModel
+import com.paulo4fs.digitalgames.home.adapter.HomeViewHolder
 
 class HomeAdapter(
     private val _gamesList: MutableList<GameModel>,

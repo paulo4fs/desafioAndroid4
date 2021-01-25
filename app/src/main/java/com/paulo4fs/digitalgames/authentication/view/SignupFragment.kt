@@ -7,14 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.paulo4fs.digitalgames.R
 import com.paulo4fs.digitalgames.authentication.viewmodel.AuthViewModel
 import com.paulo4fs.digitalgames.utils.AuthUtils
-import kotlin.math.sign
 
 
 class SignupFragment : Fragment() {
@@ -65,7 +63,7 @@ class SignupFragment : Fragment() {
         signupBtn.setOnClickListener {
             AuthUtils.hideKeyboard(_view)
             when {
-                AuthUtils.validadeNameEmailPassword(
+                AuthUtils.validateNameEmailPassword(
                     nameView.text.toString(),
                     emailView.text.toString(),
                     passwordView.text.toString(),
