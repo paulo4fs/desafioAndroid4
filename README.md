@@ -12,7 +12,9 @@
 
 * Navigation
 * RecyclerView 
-* Firebase
+* Firebase Authentication
+* Firebase Realtime Database
+* Firebase Storage
 * Coroutines
 * Material
 * Picasso
