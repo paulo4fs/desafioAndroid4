@@ -18,6 +18,7 @@ import com.paulo4fs.digitalgames.utils.Constants.GAME_ID
 import com.paulo4fs.digitalgames.utils.Constants.GAME_IMAGE_URL
 import com.paulo4fs.digitalgames.utils.Constants.GAME_TITLE
 import com.squareup.picasso.Picasso
+import java.util.*
 
 class GameFragment : Fragment() {
     private lateinit var _view: View
@@ -57,8 +58,8 @@ class GameFragment : Fragment() {
             Picasso.get().load(imageUrl).fit().centerCrop().into(imageCoverView)
         }
 
-        titleView.text = title
-        title2View.text = title
+        titleView.text = title?.capitalize(Locale.ROOT)
+        title2View.text = title?.capitalize(Locale.ROOT)
         createdAtView.text = createdAt.toString()
         descriptionView.text = description
 
